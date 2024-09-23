@@ -17,8 +17,16 @@
   \endgroup             % End local group
 }
 
-\renewcommand{\section}[1]{%
-  \refstepcounter{mysection}
+
+% Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section{Title}{3}, calling \section again resumes normal step numbering with section 4)
+\renewcommand{\section}[2]{
+  \ifx\relax#2\relax
+      \refstepcounter{mysection}
+    \else
+      \setcounter{mysection}{#2}
+    \fi
+
+  \setcounter{equation}{0}
   \begingroup % Begin local group to contain font size/style changes
   \large
   \setlength{\leftskip}{0pt}
@@ -32,5 +40,5 @@
   \medskip
 }
 
+% Declare equation numbering as (Ch.Sec.Num)
 \renewcommand{\theequation}{\thechapter.\themysection.\arabic{equation}}
-

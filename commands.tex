@@ -1,0 +1,36 @@
+\newcounter{chapter}
+\newcounter{mysection}[chapter]
+
+\newcommand{\chapter}[1]{%
+  \clearpage
+  \stepcounter{chapter}
+
+  \begingroup           % Begin local group to contain font size/style changes
+  
+  \setlength{\leftskip}{0pt}
+  \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
+  \sbox0{\LARGE{#1}}    % Store the text box to calc. its width
+  \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par    % First rule with width of sbox0
+  \noindent\usebox0\par\vspace{6pt}     % Display text from sbox0
+  \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}             % Second rule using same width
+  
+  \endgroup             % End local group
+}
+
+\renewcommand{\section}[1]{%
+  \refstepcounter{mysection}
+  \begingroup % Begin local group to contain font size/style changes
+  \large
+  \setlength{\leftskip}{0pt}
+
+  \noindent\textbf{\thechapter-\themysection} % Number aligned with default left margin
+  \hspace{-2em} % Indent section title 2em from the default margin
+  \hspace{+1.6em} % Adjust back to the left margin
+  \textbf{#1} % Section title
+  
+  \endgroup % End local group
+  \medskip
+}
+
+\renewcommand{\theequation}{\thechapter.\themysection.\arabic{equation}}
+

@@ -1,6 +1,10 @@
 \newcounter{chapter}
 \newcounter{mysection}[chapter]
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% Sectioning Commands %
+%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand{\chapter}[1]{%
   \clearpage
   \stepcounter{chapter}
@@ -18,7 +22,7 @@
 }
 
 
-% Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section{Title}{3}, calling \section again resumes normal step numbering with section 4)
+% Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
 \renewcommand{\section}[2][]{
   \ifx\relax#1\relax
       \refstepcounter{mysection}
@@ -32,13 +36,30 @@
   \setlength{\leftskip}{0pt}
 
   \noindent\textbf{\thechapter-\themysection} % Number aligned with default left margin
-  \hspace{-2em} % Indent section title 2em from the default margin
-  \hspace{+1.6em} % Adjust back to the left margin
+  % \hspace{-2em} % Adjust back to the left margin
+  % \hspace{+1.6em} % Indent title 1.6em from the default margin (large text needs less indent)
   \textbf{#2} % Section title
   
   \endgroup % End local group
   \medskip
 }
+
+
+% Numbered subsections, does not affect equation number
+\renewcommand{\subsection}[1]{
+  \refstepcounter{mysubsection}
+  
+  \begingroup % Begin local group to contain font size/style changes
+  \large
+  \setlength{\leftskip}{0pt}
+
+  \noindent\textbf{\thechapter-\themysection-\themysubsection} % Number aligned with default left margin
+  \textbf{#1} % Section title
+  
+  \endgroup % End local group
+  \medskip
+}
+
 
 % Declare equation numbering as (Ch.Sec.Num)
 \renewcommand{\theequation}{\thechapter.\themysection.\arabic{equation}}

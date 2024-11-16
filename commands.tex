@@ -1,59 +1,106 @@
-\newcounter{chapter}
-\newcounter{mysection}[chapter]
+%%%%%%%%%%%%
+% Counters %
+%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%
-% Sectioning Commands %
-%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mysection}[chapter] % Reset mysection counter when chapter increases
+\newcounter{myeqsec}[chapter]
+\newcounter{mysubsection}[mysection] % Reset mysubsection counter when mysection increases
 
-\newcommand{\chapter}[1]{%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter/Section Formatting %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modification of LaTeX commands to allow for fancy chapter header without damaging commands used by \tableofcontents or \chapter*
+\makeatletter   % Allow modification of LaTeX internal commands
+
+\let\originalchapter\chapter    % Save the original chapter command
+
+% Create a new command for custom chapter formatting
+\newcommand{\formattedchapter}[1]{%
   \clearpage
   \stepcounter{chapter}
-
-  \begingroup           % Begin local group to contain font size/style changes
+  
+  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+  \begingroup
   
   \setlength{\leftskip}{0pt}
   \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
-  \sbox0{\LARGE{#1}}    % Store the text box to calc. its width
-  \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par    % First rule with width of sbox0
-  \noindent\usebox0\par\vspace{6pt}     % Display text from sbox0
-  \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}             % Second rule using same width
+  \sbox0{\LARGE{#1}}
+  \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par
+  \noindent\usebox0\par\vspace{6pt}
+  \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}
   
-  \endgroup             % End local group
+  \endgroup
 }
+
+% Store the original \@chapter and \@schapter
+\let\old@chapter\@chapter
+\let\old@schapter\@schapter
+
+% Redefine the internal chapter commands
+\def\@chapter[#1]#2{%
+  \formattedchapter{#2}%
+}
+
+\def\@schapter#1{%
+  \old@schapter{#1}%
+}
+\makeatother
 
 
 % Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
 \renewcommand{\section}[2][]{
   \ifx\relax#1\relax
+      \refstepcounter{myeqsec}
       \refstepcounter{mysection}
     \else
       \setcounter{mysection}{#1}
+      \setcounter{myeqsec}{#1}
     \fi
+    
+  \addcontentsline{toc}{section}{\protect\numberline{\themysection}#2}
 
   \setcounter{equation}{0}
+  \bigskip
   \begingroup % Begin local group to contain font size/style changes
   \large
   \setlength{\leftskip}{0pt}
 
-  \noindent\textbf{\thechapter-\themysection} % Number aligned with default left margin
+  \noindent\textbf{\themysection} % Number aligned with default left margin
   % \hspace{-2em} % Adjust back to the left margin
   % \hspace{+1.6em} % Indent title 1.6em from the default margin (large text needs less indent)
   \textbf{#2} % Section title
   
   \endgroup % End local group
-  \medskip
+  \bigskip
 }
-
 
 % Numbered subsections, does not affect equation number
 \renewcommand{\subsection}[1]{
   \refstepcounter{mysubsection}
   
+  \addcontentsline{toc}{subsection}{\protect\numberline{\themysubsection}#1}
+
+  \medskip
   \begingroup % Begin local group to contain font size/style changes
-  \large
+  \normalsize
   \setlength{\leftskip}{0pt}
 
-  \noindent\textbf{\thechapter-\themysection-\themysubsection} % Number aligned with default left margin
+  \noindent\textbf{\themysubsection} % Number aligned with default left margin
+  \textbf{#1} % Section title
+  
+  \endgroup % End local group
+  \medskip
+}
+
+\newcommand{\altsubsection}[1]{
+  \medskip
+  \begingroup % Begin local group to contain font size/style changes
+  \large
+  \setlength{\parindent}{0em}
+  
   \textbf{#1} % Section title
   
   \endgroup % End local group
@@ -61,5 +108,13 @@
 }
 
 
-% Declare equation numbering as (Ch.Sec.Num)
-\renewcommand{\theequation}{\thechapter.\themysection.\arabic{equation}}
+
+%%%%%%%%%%%%%
+% Numbering %
+%%%%%%%%%%%%%
+
+% Declare various numbering sequences
+\renewcommand{\theequation}{\thechapter.\themyeqsec.\arabic{equation}}
+\renewcommand{\themysection}{\thechapter-\arabic{mysection}}
+\renewcommand{\themysubsection}{\themysection-\arabic{mysubsection}}
+\renewcommand{\thefootnote}{\arabic{footnote}}

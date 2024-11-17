@@ -12,6 +12,10 @@
 % Chapter/Section Formatting %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Chapter and section markers for fancy header
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
 % Modification of LaTeX commands to allow for fancy chapter header without damaging commands used by \tableofcontents or \chapter*
 \makeatletter   % Allow modification of LaTeX internal commands
 
@@ -21,6 +25,8 @@
 \newcommand{\formattedchapter}[1]{%
   \clearpage
   \stepcounter{chapter}
+  \chaptermark{#1}
+  \thispagestyle{empty}
   
   \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
   \begingroup
@@ -59,7 +65,7 @@
       \setcounter{mysection}{#1}
       \setcounter{myeqsec}{#1}
     \fi
-    
+  \sectionmark{#2}
   \addcontentsline{toc}{section}{\protect\numberline{\themysection}#2}
 
   \setcounter{equation}{0}
@@ -118,3 +124,19 @@
 \renewcommand{\themysection}{\thechapter-\arabic{mysection}}
 \renewcommand{\themysubsection}{\themysection-\arabic{mysubsection}}
 \renewcommand{\thefootnote}{\arabic{footnote}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Various Formatting %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*\widefbox[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
+
+\fancypagestyle{plain}{%
+    \fancyhf{} % Clear all header and footer fields
+    \fancyhead{}  % Create empty header
+    \fancyfoot{}  % Create empty footer
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}

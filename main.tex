@@ -1,10 +1,10 @@
-\documentclass[12pt]{report}
+\documentclass[12pt, twoside]{report}
 
 %%%%%%%%%%%%%%%%%%%%%%
 % Define header variables
-\newcommand{\name}{Samuel LeRose}              % Name goes here
+\newcommand{\name}{John Doe}              % Name goes here
 \newcommand{\semester}{-- 202-}        % Semester goes here
-\newcommand{\hwTitle}{PHY--- Notes}  % Class title goes here
+\newcommand{\hwTitle}{ABC123 Notes}  % Class title goes here
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -23,20 +23,26 @@
     {\Large{\hwTitle}}
     \vskip 0.25in \name\\
     \semester
-    \vskip 0.25in {\it Department of Physics and Astronomy\\ University of Kentucky\\ Lexington, KY 40506, USA}
+    \vskip 0.25in {\it Department of Science\\ University of Place\\ Place, ST 12345, USA}
 \end{center}
 \vskip 0.5in
 \end{titlepage}
 
-\tableofcontents
+\pagestyle{empty}       % Empty page style to remove heading and page number in table of contents
+\tableofcontents        % Create table of contents
+
+\chapter*{Definitions}  % Unnumbered chapter
+\pagestyle{fancy}       % Begin fancy page style
+\addcontentsline{toc}{chapter}{Definitions} % Add "Definitions" to the table of contents (required for all unnumbered chapters)
+\input{Chapters/Extras/definitions}
 
 \chapter{The Beginning}
 
-\section{The Middle}
-\input{Chapters/1/the_middle}
-
-
-\section[3]{The End}    % Calling [X] before a section forces the section numbering
-\input{Chapters/1/the_end}
+    \section{The Middle}
+    \input{Chapters/1/the_middle}
+    
+    
+    \section[3]{The End}    % Calling [#] before a section forces the section numbering to #
+    \input{Chapters/1/the_end}
 
 \end{document}

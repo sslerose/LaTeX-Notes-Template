@@ -28,16 +28,17 @@
   \chaptermark{#1}
   \thispagestyle{empty}
   
+  % Modified TOC entry to ensure proper PDF structure
+  \phantomsection  % Add this to ensure proper hyperref linking
   \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
-  \begingroup
   
+  \begingroup
   \setlength{\leftskip}{0pt}
   \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
   \sbox0{\LARGE{#1}}
   \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par
   \noindent\usebox0\par\vspace{6pt}
   \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}
-  
   \endgroup
 }
 
@@ -47,7 +48,11 @@
 
 % Redefine the internal chapter commands
 \def\@chapter[#1]#2{%
-  \formattedchapter{#2}%
+  \ifx\relax#1\relax
+    \formattedchapter{#2}%
+  \else
+    \formattedchapter{#1}%
+  \fi
 }
 
 \def\@schapter#1{%
@@ -121,6 +126,7 @@
 
 % Declare various numbering sequences
 \renewcommand{\theequation}{\thechapter.\themyeqsec.\arabic{equation}}
+%\renewcommand{\themychapter}{\thechapter}
 \renewcommand{\themysection}{\thechapter-\arabic{mysection}}
 \renewcommand{\themysubsection}{\themysection-\arabic{mysubsection}}
 \renewcommand{\thefootnote}{\arabic{footnote}}

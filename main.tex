@@ -1,19 +1,34 @@
 \documentclass[12pt, twoside]{report}
 
-%%%%%%%%%%%%%%%%%%%%%%
-% Define header variables
-\newcommand{\name}{John Doe}              % Name goes here
-\newcommand{\semester}{-- 202-}        % Semester goes here
-\newcommand{\hwTitle}{ABC123 Notes}  % Class title goes here
-%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define header variables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%
-% Input prereqs
+\newcommand{\name}{Your Name}              % Name goes here
+\newcommand{\semester}{Fall 2025}        % Semester goes here
+\newcommand{\hwTitle}{ABC123 Notes}  % Class title goes here
+
+
+%%%%%%%%%%%%%%%%%
+% Input prereqs %
+%%%%%%%%%%%%%%%%%
+
 \input{packages}
 \input{page_style}
 \input{commands}
 \input{phys_commands}
-%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%
+% References %
+%%%%%%%%%%%%%%
+
+\addbibresource{ref.bib}
+
+
+%%%%%%%%%%%%%%%%%
+% Main Document %
+%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -23,12 +38,13 @@
     {\Large{\hwTitle}}
     \vskip 0.25in \name\\
     \semester
-    \vskip 0.25in {\it Department of Science\\ University of Place\\ Place, ST 12345, USA}
+    \vskip 0.25in {\it Department of STEM\\ University of Place\\ Place, ST 12345, USA}
 \end{center}
 \vskip 0.5in
 \end{titlepage}
 
 \pagestyle{empty}       % Empty page style to remove heading and page number in table of contents
+\hypertarget{toc}{}
 \tableofcontents        % Create table of contents
 
 \chapter*{Definitions}  % Unnumbered chapter
@@ -36,13 +52,37 @@
 \addcontentsline{toc}{chapter}{Definitions} % Add "Definitions" to the table of contents (required for all unnumbered chapters)
 \input{Chapters/Extras/definitions}
 
-\chapter{The Beginning}
+%%%%%%%%%%%%%%%%
+% Introduction %
+%%%%%%%%%%%%%%%%
 
-    \section{The Middle}
+\part{Introduction}     % New part for broad separation
+
+\chapter{The Beginning}\label{ch:begin}     % New chapter and label for referencing
+
+    \section{The Middle}\label{sec:middle}  % New section and label for referencing
     \input{Chapters/1/the_middle}
     
     
     \section[3]{The End}    % Calling [#] before a section forces the section numbering to #
     \input{Chapters/1/the_end}
+
+
+%%%%%%%%%%%%
+% Appendix %
+%%%%%%%%%%%%
+
+\newpage
+\part{Appendix}     % Appendix page
+
+\begin{appendices}  % Start appendix (changes chapter labeling to alphabetic)
+
+\chapter{Derivations}
+
+    \section{Theorem}\label{app:theorem}
+    \input{Appendix/Derivations/theorem}
+
+\end{appendices}
+\printbibliography  % Print references
 
 \end{document}

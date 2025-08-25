@@ -2,9 +2,11 @@
 % Counters %
 %%%%%%%%%%%%
 
-\newcounter{mysection}[chapter] % Reset mysection counter when chapter increases
+% Declare new {counter} and reset it when [index] increases
+\newcounter{mysection}[chapter]
 \newcounter{myeqsec}[chapter]
-\newcounter{mysubsection}[mysection] % Reset mysubsection counter when mysection increases
+\newcounter{mysubsection}[mysection]
+\newcounter{myexample}[chapter]
 
 
 
@@ -35,7 +37,7 @@
   \begingroup
   \setlength{\leftskip}{0pt}
   \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
-  \sbox0{\LARGE{#1}}
+  \sbox0{\LARGE{\hyperlink{toc}{#1}}}
   \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par
   \noindent\usebox0\par\vspace{6pt}
   \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}
@@ -60,7 +62,6 @@
 }
 \makeatother
 
-
 % Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
 \renewcommand{\section}[2][]{
   \ifx\relax#1\relax
@@ -76,7 +77,7 @@
   \setcounter{equation}{0}
   \bigskip
   \begingroup % Begin local group to contain font size/style changes
-  \large
+  \Large
   \setlength{\leftskip}{0pt}
 
   \noindent\textbf{\themysection} % Number aligned with default left margin
@@ -96,7 +97,7 @@
 
   \medskip
   \begingroup % Begin local group to contain font size/style changes
-  \normalsize
+  \large
   \setlength{\leftskip}{0pt}
 
   \noindent\textbf{\themysubsection} % Number aligned with default left margin
@@ -120,6 +121,24 @@
 
 
 
+%%%%%%%%%%%%
+% Examples %
+%%%%%%%%%%%%
+
+% Define environment for writing examples with autonumbering
+\newenvironment{example}
+    {
+        \refstepcounter{myexample}  % Increase myexample counter
+        \begin{mdframed}    % Create a box around examples that stretches across pages
+        \textbf{Example \themyexample:} % Auto-label examples
+        \\
+    }
+    {
+        \end{mdframed}
+    }
+
+
+
 %%%%%%%%%%%%%
 % Numbering %
 %%%%%%%%%%%%%
@@ -129,6 +148,7 @@
 \renewcommand{\themysection}{\thechapter-\arabic{mysection}}
 \renewcommand{\themysubsection}{\themysection-\arabic{mysubsection}}
 \renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\themyexample}{\thechapter.\arabic{myexample}}
 
 
 

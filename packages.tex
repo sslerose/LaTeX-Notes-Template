@@ -6,11 +6,17 @@
 %\usepackage{titlesec}               % title formatting
 \usepackage[T1]{fontenc}            % Better diacritic output
 \usepackage{newtxtext,newtxmath}    % URW Nimbus Roman
+\usepackage{tocloft}
+    \renewcommand\cftpartfont{\Large\bfseries}
+    \renewcommand\cftpartpagefont{\bfseries}
+    \renewcommand\cftchapfont{\large\bfseries}
+    \renewcommand\cftchappagefont{\bfseries}
 \usepackage{lipsum}                 % Dummy text
 \usepackage{enumitem}               % Better enumerate environment
-\usepackage[toc]{appendix}          % Add appendix sections
+\usepackage{appendix}    % Add appendix sections
 \usepackage{multirow, booktabs}     % Better tabular commands
 \usepackage[hypertexnames=false]{hyperref}  % Hyperlink reference in PDF
+\usepackage[style=authoryear]{biblatex}
 
 
 %%%%%%%%
@@ -20,10 +26,12 @@
 \usepackage{cancel}					% To use the slash to cancel out stuff in work
 \usepackage{physics}                % Better math symbols common to physics
 \usepackage{siunitx}                % Easy SI unit expressions
+    \sisetup{inter-unit-product=\ensuremath{{}\cdot{}}} % Use center dot for multi. units
 \usepackage{empheq}                 % Good for some alignment and equation boxing
 \usepackage{xfrac}                  % Better fraction commands
 \usepackage{mathtools}              % Beautify math and add some useful commands
-\usepackage{bm}                     % Bold math
+\usepackage{empheq}                 % Good for some alignment and equation boxing
+\usepackage{bm}
 %\usepackage{mathrsfs}               % Raph Smith's Formal Script math font
 
 
@@ -35,3 +43,4 @@
 \usepackage{subcaption}             % Multi-figure captions
 \usepackage{wrapfig}                % Enable wrapping text around figures
 \usepackage[font=footnotesize,labelfont=bf]{caption}    % Figure caption formatting
+\usepackage{mdframed}

@@ -25,23 +25,23 @@
 
 % Create a new command for custom chapter formatting
 \newcommand{\formattedchapter}[1]{%
-  \clearpage
-  \stepcounter{chapter}
-  \chaptermark{#1}
-  \thispagestyle{empty}
-  
-  % Modified TOC entry to ensure proper PDF structure
-  \phantomsection  % Add this to ensure proper hyperref linking
-  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
-  
-  \begingroup
-  \setlength{\leftskip}{0pt}
-  \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
-  \sbox0{\LARGE{\hyperlink{toc}{#1}}}
-  \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par
-  \noindent\usebox0\par\vspace{6pt}
-  \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}
-  \endgroup
+    \clearpage
+    \stepcounter{chapter}
+    \chaptermark{#1}
+    \thispagestyle{empty}
+    
+    % Modified TOC entry to ensure proper PDF structure
+    \phantomsection  % Add this to ensure proper hyperref linking
+    \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+    
+    \begingroup
+    \setlength{\leftskip}{0pt}
+    \noindent\bfseries\Huge\thechapter\par\vspace{-12pt}
+    \sbox0{\LARGE{\hyperlink{toc}{#1}}}
+    \noindent\rule[\dimexpr\ht\strutbox-26pt]{\wd0}{0.4pt}\par
+    \noindent\usebox0\par\vspace{6pt}
+    \noindent\rule[\dimexpr\ht\strutbox]{\wd0}{0.4pt}
+    \endgroup
 }
 
 % Store the original \@chapter and \@schapter
@@ -50,73 +50,73 @@
 
 % Redefine the internal chapter commands
 \def\@chapter[#1]#2{%
-  \ifx\relax#1\relax
-    \formattedchapter{#2}%
-  \else
-    \formattedchapter{#1}%
-  \fi
+    \ifx\relax#1\relax
+        \formattedchapter{#2}%
+    \else
+        \formattedchapter{#1}%
+    \fi
 }
 
 \def\@schapter#1{%
-  \old@schapter{#1}%
+    \old@schapter{#1}%
 }
 \makeatother
 
 % Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
 \renewcommand{\section}[2][]{
-  \ifx\relax#1\relax
-      \refstepcounter{myeqsec}
-      \refstepcounter{mysection}
+    \ifx\relax#1\relax
+        \refstepcounter{myeqsec}
+        \refstepcounter{mysection}
     \else
-      \setcounter{mysection}{#1}
-      \setcounter{myeqsec}{#1}
+        \setcounter{mysection}{#1}
+        \setcounter{myeqsec}{#1}
     \fi
-  \sectionmark{#2}
-  \addcontentsline{toc}{section}{\protect\numberline{\themysection}#2}
-
-  \setcounter{equation}{0}
-  \bigskip
-  \begingroup % Begin local group to contain font size/style changes
-  \Large
-  \setlength{\leftskip}{0pt}
-
-  \noindent\textbf{\themysection} % Number aligned with default left margin
-  % \hspace{-2em} % Adjust back to the left margin
-  % \hspace{+1.6em} % Indent title 1.6em from the default margin (large text needs less indent)
-  \textbf{#2} % Section title
-  
-  \endgroup % End local group
-  \bigskip
+    \sectionmark{#2}
+    \addcontentsline{toc}{section}{\protect\numberline{\themysection}#2}
+    
+    \setcounter{equation}{0}
+    \bigskip
+    \begingroup % Begin local group to contain font size/style changes
+    \Large
+    \setlength{\leftskip}{0pt}
+    
+    \noindent\textbf{\themysection} % Number aligned with default left margin
+    % \hspace{-2em} % Adjust back to the left margin
+    % \hspace{+1.6em} % Indent title 1.6em from the default margin (large text needs less indent)
+    \textbf{#2} % Section title
+    
+    \endgroup % End local group
+    \bigskip
 }
 
 % Numbered subsections, does not affect equation number
 \renewcommand{\subsection}[1]{
-  \refstepcounter{mysubsection}
-  
-  \addcontentsline{toc}{subsection}{\protect\numberline{\themysubsection}#1}
-
-  \medskip
-  \begingroup % Begin local group to contain font size/style changes
-  \large
-  \setlength{\leftskip}{0pt}
-
-  \noindent\textbf{\themysubsection} % Number aligned with default left margin
-  \textbf{#1} % Section title
-  
-  \endgroup % End local group
-  \medskip
+    \refstepcounter{mysubsection}
+    
+    \addcontentsline{toc}{subsection}{\protect\numberline{\themysubsection}#1}
+    
+    \medskip
+    \begingroup % Begin local group to contain font size/style changes
+    \large
+    \setlength{\leftskip}{0pt}
+    
+    \noindent\textbf{\themysubsection} % Number aligned with default left margin
+    \textbf{#1} % Section title
+    
+    \endgroup % End local group
+    \medskip
 }
 
 \newcommand{\altsubsection}[1]{
-  \medskip
-  \begingroup % Begin local group to contain font size/style changes
-  \large
-  \setlength{\parindent}{0em}
-  
-  \textbf{#1} % Section title
-  
-  \endgroup % End local group
-  \medskip
+    \medskip
+    \begingroup % Begin local group to contain font size/style changes
+    \large
+    \setlength{\parindent}{0em}
+    
+    \textbf{#1} % Section title
+    
+    \endgroup % End local group
+    \medskip
 }
 
 

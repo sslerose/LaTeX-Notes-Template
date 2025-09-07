@@ -125,13 +125,29 @@
 % Examples %
 %%%%%%%%%%%%
 
+\mdfdefinestyle{examplestyle}{frametitleaboveskip=0.75\topskip, frametitlebelowskip=0.75\topskip, innermargin=1em, outermargin=1em}
+
 % Define environment for writing examples with autonumbering
 \newenvironment{example}
     {
         \refstepcounter{myexample}  % Increase myexample counter
-        \begin{mdframed}    % Create a box around examples that stretches across pages
-        \textbf{Example \themyexample:} % Auto-label examples
-        \\
+        \begin{mdframed}[style=examplestyle, frametitle={Example \themyexample:}]    % Create a box around examples that stretches across pages
+    }
+    {
+        \end{mdframed}
+    }
+
+
+
+%%%%%%%%%%%%%%
+% Principles %
+%%%%%%%%%%%%%%
+
+\mdfdefinestyle{principlestyle}{linewidth=0pt, frametitlealignment=\centering, frametitleaboveskip=0.75\topskip, frametitlebelowskip=0.75\topskip, frametitlebackgroundcolor=gray!20, backgroundcolor=gray!20, innermargin=1em, outermargin=1em}
+
+\newenvironment{principle}[1]
+    {
+        \begin{mdframed}[style=principlestyle, frametitle={#1}]
     }
     {
         \end{mdframed}

@@ -6,49 +6,43 @@
 % Particles %
 %%%%%%%%%%%%%
 
-\newcommand{\electron}{\text{e}^{-}}
-\newcommand{\proton}{\text{p}^{+}}
-\newcommand{\neutron}{\text{n}^{0}}
-
-\newcommand{\eMass}{\SI{9.1e-31}{kg}}
-\newcommand{\pMass}{\SI{1.67e-27}{kg}}
+\newcommand*{\electron}{\text{e}^{-}}    % Electron symbol
+\newcommand*{\proton}{\text{p}^{+}}      % Proton symbol
+\newcommand*{\neutron}{\text{n}^{0}}     % Neutron symbol
 
 %%%%%%%%%%%%%
 % Variables %
 %%%%%%%%%%%%%
 
-\newcommand*{\freq}{\mathord{\mathit{f}}\mkern1mu}
-\newcommand{\iu}{{i\mkern1mu}}
-\newcommand{\e}{\mathrm{e}}
+\newcommand*{\freq}{\mathord{\mathit{f}}\mkern1mu}  % Frequency (better f)
+\newcommand*{\imgnry}{{\bm{i}\mkern1mu}}            % Imaginary number (bold i)
+\newcommand*{\lag}{\mathscr{L}}                     % Lagrangian (curly L)
+\newcommand*{\hamil}{\mathscr{H}}                   % Hamiltonian (curly H)
 
 %%%%%%%%%%%%%
-% Constants %
+% Functions %
 %%%%%%%%%%%%%
 
-\newcommand{\hNum}{\SI{6.63e-34}{\joule\second}}
-\newcommand{\hbarNum}{\SI{1.06e-34}{\joule\second}}
-\newcommand{\cNum}{\SI{3e8}{m/s}}
-
-%%%%%%%%%%%%%
-% Notations %
-%%%%%%%%%%%%%
-
-\newcommand*{\mean}[1]{\bar{#1}}
+\newcommand*{\e}{\mathrm{e}}    % Exponential function
 
 %%%%%%%%%%%%%
 % Operators %
 %%%%%%%%%%%%%
 
-\newcommand{\parity}{\hat{P}}
-\newcommand{\hamiltonian}{\hat{H}}
-\newcommand{\linearop}{\hat{L}}
-\newcommand{\genop}{\hat{O}}
-\newcommand{\operator}[1]{\hat{#1}}
-\renewcommand{\comm}[2]{\qty[\hat{#1},\hat{#2}]}
-\renewcommand{\div}[1]{\nabla\cdot#1}
+\renewcommand{\comm}[2]{\qty[\hat{#1},\hat{#2}]}    % Commutator
+
+\renewcommand{\grad}{\nabla}                % Gradient
+\renewcommand{\div}[1]{\nabla\cdot#1}       % Divergence
+\renewcommand{\curl}[1]{\nabla\times#1}     % Curl
+
+%%%%%%%%%%%%%
+% Notations %
+%%%%%%%%%%%%%
+
+\newcommand*{\mean}[1]{\bar{#1}}    % Average (overhead bar notation)
 
 %%%%%%%%%
 % Names %
 %%%%%%%%%
 
-\newcommand{\Schrodinger}{Schr\"{o}dinger }
+\newcommand*{\Schrodinger}{Schr\"{o}dinger }    % Schrodinger with o dots

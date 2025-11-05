@@ -10,9 +10,9 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Chapter/Section Formatting %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% Chapter Formatting %
+%%%%%%%%%%%%%%%%%%%%%%
 
 % Chapter and section markers for fancy header
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
@@ -62,7 +62,14 @@
 }
 \makeatother
 
-% Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% Section Formatting %
+%%%%%%%%%%%%%%%%%%%%%%
+
+% Create a new command for custom section formatting.
+    % Second input used to declare a non-step increase in section numbering (i.e., section 1 declared with \section{Title} followed by section 3 declared with \section[3]{Title}, calling \section again resumes normal step numbering with section 4)
 \renewcommand{\section}[2][]{
     \ifx\relax#1\relax
         \refstepcounter{myeqsec}
@@ -81,16 +88,40 @@
     \setlength{\leftskip}{0pt}
     
     \noindent\textbf{\themysection} % Number aligned with default left margin
-    % \hspace{-2em} % Adjust back to the left margin
-    % \hspace{+1.6em} % Indent title 1.6em from the default margin (large text needs less indent)
     \textbf{#2} % Section title
     
     \endgroup % End local group
     \bigskip
 }
 
-% Numbered subsections, does not affect equation number
-\renewcommand{\subsection}[1]{
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Subsection Formatting %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Create a new command for custom subsection formatting.
+    % Numbered (using \subsection) or unnumbered (using \subsection*) subsections are possible, neither affect equation number. Unnumbered subsections will not show in TOC, but will show in file outline.
+\makeatletter
+\def\subsection{
+    \@ifstar\@subsection\@@subsection
+}
+
+% Unnumbered subsection
+\def\@subsection#1{
+    \medskip
+    \begingroup % Begin local group to contain font size/style changes
+    \large
+    \setlength{\leftskip}{0pt}
+    
+    \textbf{#1} % Section title
+    
+    \endgroup % End local group
+    \medskip
+}
+
+% Numbered subsection
+\def\@@subsection#1{
     \refstepcounter{mysubsection}
     
     \addcontentsline{toc}{subsection}{\protect\numberline{\themysubsection}#1}
@@ -106,18 +137,7 @@
     \endgroup % End local group
     \medskip
 }
-
-\newcommand{\altsubsection}[1]{
-    \medskip
-    \begingroup % Begin local group to contain font size/style changes
-    \large
-    \setlength{\parindent}{0em}
-    
-    \textbf{#1} % Section title
-    
-    \endgroup % End local group
-    \medskip
-}
+\makeatother
 
 
 
@@ -125,9 +145,9 @@
 % Examples %
 %%%%%%%%%%%%
 
+% Define environment for writing boxed examples with autonumbering
 \mdfdefinestyle{examplestyle}{frametitleaboveskip=\topskip, frametitlebelowskip=\topskip, innermargin=1em, outermargin=1em}
 
-% Define environment for writing examples with autonumbering
 \newenvironment{example}
     {
         \refstepcounter{myexample}  % Increase myexample counter
@@ -143,6 +163,7 @@
 % Principles %
 %%%%%%%%%%%%%%
 
+% Define environment for displaying boxed sections with gray background to emphasize important topics
 \mdfdefinestyle{principlestyle}{linewidth=0pt, frametitlealignment=\centering, frametitleaboveskip=\topskip, frametitlebelowskip=\topskip, frametitlebackgroundcolor=gray!20, backgroundcolor=gray!20, innermargin=1em, outermargin=1em, innerbottommargin=\topskip}
 
 \newenvironment{principle}[1]
@@ -173,11 +194,3 @@
 %%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand*\widefbox[1]{\fbox{\hspace{1em}#1\hspace{1em}}}
-
-\fancypagestyle{plain}{%
-    \fancyhf{} % Clear all header and footer fields
-    \fancyhead{}  % Create empty header
-    \fancyfoot{}  % Create empty footer
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-}

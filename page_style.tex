@@ -8,6 +8,14 @@
 \fancyhead[LE,RO]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
+\fancypagestyle{plain}{%
+    \fancyhf{} % Clear all header and footer fields
+    \fancyhead{}  % Create empty header
+    \fancyfoot{}  % Create empty footer
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
 %%%%%%%%%%%
 % Spacing %
 %%%%%%%%%%%
